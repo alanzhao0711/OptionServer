@@ -59,7 +59,7 @@ def get_data(folder_name):
     data_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), folder_name)
 
     # Get the list of CSV files in the files directory
-    csv_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]
+    # csv_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]
     # for f in csv_files:
     #     file_path = os.path.join(data_dir, f)
     #     creation_time = os.path.getctime(file_path)
@@ -67,10 +67,17 @@ def get_data(folder_name):
     # Find the most recent CSV file based on the file creation time
     # newest_file = max(csv_files, key=lambda f: os.path.getmtime(os.path.join(data_dir, f)))
     # print(newest_file)
-    est = timezone('US/Eastern')  # set EST timezone
-    dt = datetime.datetime.now(est)  # get current date and time in EST timezone
-    date_str = dt.strftime('%Y-%m-%d') 
-    newest_file = f"{date_str}.csv"
+
+    date_files = [f for f in os.listdir(data_dir) if len(f) == 10 and f[4] == '-' and f[7] == '-']
+    # Sort the files in descending order based on filename
+    date_files.sort(reverse=True)
+    # Get the latest file
+    newest_file = date_files[0] if len(date_files) > 0 else None
+
+    # est = timezone('US/Eastern')  # set EST timezone
+    # dt = datetime.datetime.now(est)  # get current date and time in EST timezone
+    # date_str = dt.strftime('%Y-%m-%d') 
+    # newest_file = f"{date_str}.csv"
     # Load the CSV file into a DataFrame
     df = pd.read_csv(os.path.join(data_dir, newest_file))
     
@@ -119,15 +126,16 @@ def connected():
 
     #SEND DASHBOARD CARD INFORMATION TO CLIENT
     dashboardData = list(activeCollection.find({}, {"_id": 0, "data": 1}).sort([('$natural', -1)]))
-    # formatedDashboard = []
+    formatedDashboard = []
     # for i in dashboardData:
     #     for k, v in i.items():
     #         formatedDashboard.append((v))
     # for item in formatedDashboard:
     #     item['_id'] = str(item['_id'])
-    print(dashboardData)
-    emit("active-dash", dashboardData[:6])
-    emit("all-active-options", dashboardData)
+    for item in dashboardData:
+        formatedDashboard.append(item["data"])
+    emit("active-dash", formatedDashboard[:6])
+    emit("all-active-options", formatedDashboard)
     #UPDATE CURRENT BALANCE
     # calculate the current balance by computing the price of all active
     # contracts, our inital balance is 10,000
