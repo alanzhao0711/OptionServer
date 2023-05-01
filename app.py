@@ -174,8 +174,8 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 #     emit("past", past)
 
 
-app.route("/")
-def main_page():
+@app.route("/")
+def index():
     return "Hello world"
 
 
