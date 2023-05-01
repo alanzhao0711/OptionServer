@@ -59,7 +59,10 @@ def get_data(folder_name):
 
     # Get the list of CSV files in the files directory
     csv_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]
-
+    for f in csv_files:
+        file_path = os.path.join(data_dir, f)
+        creation_time = os.path.getctime(file_path)
+        print(f"{f} - creation time: {creation_time}")
     # Find the most recent CSV file based on the file creation time
     newest_file = max(csv_files, key=lambda f: os.path.getmtime(os.path.join(data_dir, f)))
     print(newest_file)
