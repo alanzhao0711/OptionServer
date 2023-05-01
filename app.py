@@ -111,12 +111,11 @@ def connected():
     #SEND DASHBOARD CARD INFORMATION TO CLIENT
     dashboardData = list(activeCollection.find({}, {"_id": 0, "data": 1}).sort([('$natural', -1)]))
     formatedDashboard = []
-    for data_dict in dashboardData:
-        k, v = data_dict.items()
-        print(v)
-        v["_id"] = str(v["_id"])
-        print(v)
-        formatedDashboard.append(v)
+    for i in dashboardData:
+        for k, v in i.items():
+            formatedDashboard.append((v))
+    for item in formatedDashboard:
+        item['_id'] = str(item['_id'])
     emit("active-dash", formatedDashboard[:6])
     emit("all-active-options", formatedDashboard)
     #UPDATE CURRENT BALANCE
