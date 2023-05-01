@@ -16,7 +16,7 @@ from OptionPrice import current_option_price
 
 app = Flask(__name__)
 CORS(app,resources={r"/*":{"origins":"*"}})
-socketio = SocketIO(app, cors_allowed_origins="*")
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='gevent')
 
 db_name = "options"
 daily_collection_name = "dailyBalance"
@@ -184,4 +184,4 @@ def handle_connect():
 
 if __name__ == "__main__":
     # app.run(debug=True, port=os.environ.get('PORT', 5000))
-    socketio.run(app)
+    socketio.run(app, port=int(os.environ.get('PORT', 5000)))
