@@ -68,7 +68,7 @@ def get_data(folder_name):
     # newest_file = max(csv_files, key=lambda f: os.path.getmtime(os.path.join(data_dir, f)))
     # print(newest_file)
     est = timezone('US/Eastern')  # set EST timezone
-    dt = datetime.now(est)  # get current date and time in EST timezone
+    dt = datetime.datetime.now(est)  # get current date and time in EST timezone
     date_str = dt.strftime('%Y-%m-%d') 
     newest_file = f"{date_str.strftime('%Y-%m-%d')}.csv"
     # Load the CSV file into a DataFrame
