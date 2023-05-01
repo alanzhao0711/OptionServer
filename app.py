@@ -62,7 +62,7 @@ def get_data(folder_name):
 
     # Find the most recent CSV file based on the file creation time
     newest_file = max(csv_files, key=lambda f: os.path.getctime(os.path.join(data_dir, f)))
-
+    print(newest_file)
     # Load the CSV file into a DataFrame
     df = pd.read_csv(os.path.join(data_dir, newest_file))
     
