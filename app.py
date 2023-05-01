@@ -13,6 +13,9 @@ import pytz
 from DownloadCSV import download
 from Compute import generateNewestIronConorsEV
 from OptionPrice import current_option_price
+import eventlet
+
+eventlet.monkey_patch()
 
 app = Flask(__name__)
 CORS(app,resources={r"/*":{"origins":"*"}})
