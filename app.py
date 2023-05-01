@@ -112,9 +112,11 @@ def connected():
     dashboardData = list(activeCollection.find({}, {"_id": 0, "data": 1}).sort([('$natural', -1)]))
     formatedDashboard = []
     for data_dict in dashboardData:
-        print(data_dict)
-        data = data_dict["data"]
-        formatedDashboard.append(data)
+        k, v = data_dict.items()
+        print(v)
+        v["_id"] = str(v["_id"])
+        print(v)
+        formatedDashboard.append(v)
     emit("active-dash", formatedDashboard[:6])
     emit("all-active-options", formatedDashboard)
     #UPDATE CURRENT BALANCE
