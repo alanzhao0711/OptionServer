@@ -24,9 +24,9 @@ dailyC = db[daily_collection_name]
 usedC = db[used_collection_name]
 activeCollection = db[active_collection_name]
 
-for doc in usedC.find():
-    num = math.ceil((doc["KellyCriterion"] * 2500 * 0.33) / (doc["Max Loss"] * 100))
-    usedC.update_one({"_id": doc["_id"]}, {"$set" : {"Quantity": num}})
+# for doc in usedC.find():
+#     num = math.ceil((doc["KellyCriterion"] * 2500 * 0.33) / (doc["Max Loss"] * 100))
+#     usedC.update_one({"_id": doc["_id"]}, {"$set" : {"Quantity": num}})
 # for doc in usedC.find():
 #     num = (doc['Max Profit'] * doc['Probability']) + ((doc['Max Loss'] * -1) * (1 - doc['Probability']))
 #     usedC.update_one({"_id": doc["_id"]}, {"$set": {"ExpectedValue": num}})
