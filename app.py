@@ -195,5 +195,5 @@ def main_page():
 
 
 if __name__ == "__main__":
-    socketio.run(app)
-
+    # socketio.run(app)
+    app.run(debug=True)
