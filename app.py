@@ -10,6 +10,7 @@ import sched
 import time
 import math
 import pytz
+from pytz import timezone
 from DownloadCSV import download
 from Compute import generateNewestIronConorsEV
 from OptionPrice import current_option_price
@@ -59,13 +60,17 @@ def get_data(folder_name):
 
     # Get the list of CSV files in the files directory
     csv_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]
-    for f in csv_files:
-        file_path = os.path.join(data_dir, f)
-        creation_time = os.path.getctime(file_path)
-        print(f"{f} - creation time: {creation_time}")
+    # for f in csv_files:
+    #     file_path = os.path.join(data_dir, f)
+    #     creation_time = os.path.getctime(file_path)
+    #     print(f"{f} - creation time: {creation_time}")
     # Find the most recent CSV file based on the file creation time
-    newest_file = max(csv_files, key=lambda f: os.path.getmtime(os.path.join(data_dir, f)))
-    print(newest_file)
+    # newest_file = max(csv_files, key=lambda f: os.path.getmtime(os.path.join(data_dir, f)))
+    # print(newest_file)
+    est = timezone('US/Eastern')  # set EST timezone
+    dt = datetime.now(est)  # get current date and time in EST timezone
+    date_str = dt.strftime('%Y-%m-%d') 
+    newest_file = f"{date_str.strftime('%Y-%m-%d')}.csv"
     # Load the CSV file into a DataFrame
     df = pd.read_csv(os.path.join(data_dir, newest_file))
     
