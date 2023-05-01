@@ -24,6 +24,10 @@ dailyC = db[daily_collection_name]
 usedC = db[used_collection_name]
 activeCollection = db[active_collection_name]
 
+# activeCollection.update_many(
+#   {},
+#   { "$unset": { "data._id": "" }} 
+# )
 # for doc in usedC.find():
 #     num = math.ceil((doc["KellyCriterion"] * 2500 * 0.33) / (doc["Max Loss"] * 100))
 #     usedC.update_one({"_id": doc["_id"]}, {"$set" : {"Quantity": num}})
