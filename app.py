@@ -113,8 +113,8 @@ def connected():
     formatedDashboard = []
     for data_dict in dashboardData:
         data = data_dict["data"]
-        data['_id'] = str(data['_id'])
         print(data)
+        data['_id'] = str(data['_id'])
         formatedDashboard.append(data)
     emit("active-dash", formatedDashboard[:6])
     emit("all-active-options", formatedDashboard)
