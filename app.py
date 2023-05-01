@@ -13,13 +13,12 @@ import pytz
 from DownloadCSV import download
 from Compute import generateNewestIronConorsEV
 from OptionPrice import current_option_price
-import eventlet
-
-eventlet.monkey_patch()
+from gevent import monkey
+monkey.patch_all()
 
 app = Flask(__name__)
 CORS(app,resources={r"/*":{"origins":"*"}})
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode='eventlet')
+socketio = SocketIO(app, cors_allowed_origins="*", async_mode='gevent')
 
 db_name = "options"
 daily_collection_name = "dailyBalance"
