@@ -68,6 +68,7 @@ def get_data(folder_name):
     
     # Select the top 10 rows from the DataFrame
     df_top_10 = df.head(10)
+    print(df_top_10)
     df_top_10["Purchased"] = (df_top_10["ExpectedValue"] > 0) & (df_top_10["KellyCriterion"] > 0)
     df_top_10["Strategy"] = folder_name
     df_top_10["CurrentPrice"] = df_top_10["Max Profit"]
