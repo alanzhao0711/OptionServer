@@ -70,7 +70,7 @@ def get_data(folder_name):
     est = timezone('US/Eastern')  # set EST timezone
     dt = datetime.datetime.now(est)  # get current date and time in EST timezone
     date_str = dt.strftime('%Y-%m-%d') 
-    newest_file = f"{date_str.strftime('%Y-%m-%d')}.csv"
+    newest_file = f"{date_str}.csv"
     # Load the CSV file into a DataFrame
     df = pd.read_csv(os.path.join(data_dir, newest_file))
     
@@ -125,6 +125,7 @@ def connected():
     #         formatedDashboard.append((v))
     # for item in formatedDashboard:
     #     item['_id'] = str(item['_id'])
+    print(dashboardData)
     emit("active-dash", dashboardData[:6])
     emit("all-active-options", dashboardData)
     #UPDATE CURRENT BALANCE
