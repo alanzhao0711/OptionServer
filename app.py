@@ -110,6 +110,7 @@ def connected():
 
     #SEND DASHBOARD CARD INFORMATION TO CLIENT
     dashboardData = list(activeCollection.find({}, {"_id": 0, "data": 1}).sort([('$natural', -1)]))
+    print(dashboardData)
     formatedDashboard = []
     for i in dashboardData:
         for k, v in i.items():
