@@ -186,3 +186,11 @@ def regular_strategy(contract):
 #         print(f"The price of the {option_symbol} call option is {option_price}")
 #     else:
 #         print(f"The option symbol {option_symbol} does not exist in the option chain data.")
+if __name__ == '__main__':
+    tz = pytz.timezone('US/Eastern')
+    start_time = time(hour=9, minute=30, tzinfo=tz)
+    end_time = time(hour=16, minute=0, tzinfo=tz)
+
+    now = datetime.now(tz)
+    if start_time <= now.time() <= end_time and now.weekday() < 5:
+        current_option_price
