@@ -91,7 +91,7 @@ def get_data(folder_name):
             try:
                 usedCollection.insert_one({doc, {"name": name}})
             except:
-                print("Contract already purchased")
+                print("Contract already in used")
             exp_date = datetime.datetime.strptime(doc["Exp Date"], "%Y-%m-%d").replace(hour=20, minute=30, second=0)
             bson_date = bson.datetime.datetime(exp_date.year, exp_date.month, exp_date.day,
                                         exp_date.hour, exp_date.minute, exp_date.second)
