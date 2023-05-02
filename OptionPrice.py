@@ -1,7 +1,6 @@
 import yfinance as yf
 from connection_file import client
-import datetime
-import time
+from datetime import datetime, time, timedelta
 import pytz
 
 db_name = "options"
