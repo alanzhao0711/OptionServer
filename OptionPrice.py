@@ -193,4 +193,4 @@ if __name__ == '__main__':
 
     now = datetime.now(tz)
     if start_time <= now.time() <= end_time and now.weekday() < 5:
-        current_option_price
+        current_option_price()
