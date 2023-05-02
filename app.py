@@ -59,27 +59,11 @@ def get_data(folder_name):
     data_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), folder_name)
     print(data_dir)
     # Get the list of CSV files in the files directory
-    csv_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]
-    print(csv_files)
-    for i in csv_files:
-        print(len(i))
-        if len(i) == 10:
-            print(i)
-    # for f in csv_files:
-    #     file_path = os.path.join(data_dir, f)
-    #     creation_time = os.path.getctime(file_path)
-    #     print(f"{f} - creation time: {creation_time}")
-    # Find the most recent CSV file based on the file creation time
-    # newest_file = max(csv_files, key=lambda f: os.path.getmtime(os.path.join(data_dir, f)))
-    # print(newest_file)
+    csv_files = [f for f in os.listdir(data_dir) if f.endswith('.csv') and len(f) == 14]
 
-    date_files = [f for f in os.listdir(data_dir) if len(f) == 10 and f[4] == '-' and f[7] == '-']
-    # Sort the files in descending order based on filename
-    print(date_files)
-    date_files.sort(reverse=True)
+    csv_files.sort(reverse=True)
     # Get the latest file
-    newest_file = date_files[0] if len(date_files) > 0 else None
-
+    newest_file = csv_files[0]
     # est = timezone('US/Eastern')  # set EST timezone
     # dt = datetime.datetime.now(est)  # get current date and time in EST timezone
     # date_str = dt.strftime('%Y-%m-%d') 
