@@ -134,9 +134,12 @@ def connected():
     total = 0
     for i in usedCollection.find():
         total += ((i["Max Profit"] - i["CurrentPrice"]) * 100) * i["Quantity"]
-    newTotal = 10000 + total
+    newTotal = 8500 + total
     emit("current-balance", newTotal)
-    emit("account-PL", total)
+    PLTotal = 0
+    for i in list(activeCollection.find({}, {"_id":0, "data":1})):
+        PLTotal += ((i["data"]["Max Profit"] - i["data"]["CurrentPrice"]) * 100) * i["data"]["Quantity"]
+    emit("account-PL", PLTotal)
     # UPDATE DAILY BALANCE
     #update or create the current balance to showcase in chart
     utc_now = datetime.datetime.utcnow()

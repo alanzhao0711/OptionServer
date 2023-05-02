@@ -14,6 +14,7 @@ db = client[db_name]
 usedCollection = db[used_collection_name]
 activeCollection = db[active_collection_name]
 
+#adjuested total = 856+428 + 636+318 + 328+164 + 496+248
 def current_option_price():
     #grab and format data
     data_list = list(activeCollection.find({}, {"data": 1, "name": 2}))
