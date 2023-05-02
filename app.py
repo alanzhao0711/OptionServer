@@ -57,7 +57,7 @@ def get_current_market_price():
 @app.route('/data/<string:folder_name>')
 def get_data(folder_name):
     data_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), folder_name)
-
+    print(data_dir)
     # Get the list of CSV files in the files directory
     # csv_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]
     # for f in csv_files:
