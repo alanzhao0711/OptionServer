@@ -17,7 +17,7 @@ activeCollection = db[active_collection_name]
 #adjuested total = 856+428 + 636+318 + 328+164 + 496+248
 def current_option_price():
     #grab and format data
-    i = 0
+    count = 0
     data_list = list(activeCollection.find({}, {"data": 1, "name": 2}))
     for i in data_list:
         #check the current option price
@@ -30,8 +30,8 @@ def current_option_price():
         else:
             optionPrice, stockPrice = regular_strategy(i["data"])
             print("Iron Option Caluclated")
-        print(i)
-        i += 1
+        print(count)
+        count += 1
         #update this to our current active contracts
         activeCollection.update_one({"_id": i["_id"]}, {"$set": {"data.CurrentPrice": optionPrice, "data.Price": stockPrice}})
         #update the used collection aswell
