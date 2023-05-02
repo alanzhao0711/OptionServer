@@ -30,6 +30,7 @@ db = client[db_name]
 dailyC = db[daily_collection_name]
 usedCollection = db[used_collection_name]
 activeCollection = db[active_collection_name]
+
 @app.route("/getMarketData")
 def get_market_data():
     try:
