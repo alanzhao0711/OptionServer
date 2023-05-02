@@ -63,6 +63,7 @@ def get_data(folder_name):
 
     csv_files.sort(reverse=True)
     # Get the latest file
+    print(csv_files)
     newest_file = csv_files[0]
     # est = timezone('US/Eastern')  # set EST timezone
     # dt = datetime.datetime.now(est)  # get current date and time in EST timezone
