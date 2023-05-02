@@ -70,6 +70,7 @@ def get_data(folder_name):
 
     date_files = [f for f in os.listdir(data_dir) if len(f) == 10 and f[4] == '-' and f[7] == '-']
     # Sort the files in descending order based on filename
+    print(date_files)
     date_files.sort(reverse=True)
     # Get the latest file
     newest_file = date_files[0] if len(date_files) > 0 else None
