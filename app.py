@@ -38,10 +38,10 @@ def get_market_data():
         # download("BullPut", "https://www.barchart.com/options/put-spreads/bull-put?orderBy=maxProfitPercent&orderDir=desc")
         # download("IronCon", "https://www.barchart.com/options/short-condors?orderBy=breakEvenProbability&orderDir=desc")
         
-        #analyze data 
-        generateNewestIronConorsEV("BearCall")
-        generateNewestIronConorsEV("BullPut")
-        generateNewestIronConorsEV("IronCon")
+        # #analyze data 
+        # generateNewestIronConorsEV("BearCall")
+        # generateNewestIronConorsEV("BullPut")
+        # generateNewestIronConorsEV("IronCon")
         return "Successfully"
     except:
         return "Failed, check errors"
