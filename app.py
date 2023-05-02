@@ -59,7 +59,8 @@ def get_data(folder_name):
     data_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), folder_name)
     print(data_dir)
     # Get the list of CSV files in the files directory
-    # csv_files = [f for f in os.listdir(data_dir) if f.endswith('.csv')]
+    csv_files = [f for f in os.listdir(data_dir) if f.endswith('.csv') and len(f) == 10]
+    print(csv_files)
     # for f in csv_files:
     #     file_path = os.path.join(data_dir, f)
     #     creation_time = os.path.getctime(file_path)
