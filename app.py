@@ -88,7 +88,7 @@ def get_data(folder_name):
         if doc["Purchased"]:
             #add doc to my usedCollection used for history of contract purchased
             name = doc["Symbol"] + doc["Exp Date"] + str(doc["ExpectedValue"]) + str(doc["KellyCriterion"])
-            usedCollection.insert_one({{doc}, {"name": name}})
+            usedCollection.insert_one({doc}, {"name": name})
             exp_date = datetime.datetime.strptime(doc["Exp Date"], "%Y-%m-%d").replace(hour=20, minute=30, second=0)
             bson_date = bson.datetime.datetime(exp_date.year, exp_date.month, exp_date.day,
                                         exp_date.hour, exp_date.minute, exp_date.second)
