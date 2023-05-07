@@ -166,6 +166,8 @@ def connected():
     for key, value in dailyChart['hour'].items():
         hour_list.append({'hour': key, 'balance': value})
     emit("daily-info", hour_list)
+    day = list(dailyC.find({}, {"_id": 0, "date": 1, "balance": 1}))
+    emit("calendar", day)
 
 @socketio.on("account")
 def account_related_info():
