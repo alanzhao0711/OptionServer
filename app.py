@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_socketio import SocketIO, emit
 import pandas as pd
 import os
@@ -193,7 +193,10 @@ def return_all_past_transactions():
 
 @app.route("/")
 def index():
-    return "Hello world"
+    if request.scheme == "https":
+        return "This requets was sent via HTTPS"
+    else:
+        return "This request was sent via HTTP"
 
 @socketio.on('connect')
 def handle_connect():
