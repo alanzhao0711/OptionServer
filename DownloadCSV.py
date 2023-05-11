@@ -6,17 +6,19 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 def download(folder_name, download_link):
     # Set the login credentials
     username = "alanzhao0711@gmail.com"
     password = "yunyun520"
 
-
     # Set the Chrome driver options
     server_dir = os.path.join(os.path.dirname(__file__))
     chrome_options = Options()
     download_dir = os.path.join(server_dir, folder_name)
-    chrome_options.add_experimental_option("prefs", {"download.default_directory": download_dir})
+    chrome_options.add_experimental_option(
+        "prefs", {"download.default_directory": download_dir}
+    )
 
     # Create a new instance of the Chrome driver
     driver = webdriver.Chrome(options=chrome_options)
@@ -33,14 +35,21 @@ def download(folder_name, download_link):
     # Navigate to the download page
     driver.get(download_link)
 
+    # refresh for the newest data
+    refresh_button = WebDriverWait(driver, 5).until(
+        EC.element_to_be_clickable((By.CSS_SELECTOR, ".toolbar-button.refresh"))
+    )
+    refresh_button.click()
     # Find and click the download button
-    download_button = WebDriverWait(driver, 5).until(
+    download_button = WebDriverWait(driver, 1).until(
         EC.element_to_be_clickable((By.CSS_SELECTOR, ".toolbar-button.download"))
-    )    
+    )
     download_button.click()
+
     time.sleep(10)
     # Close the web driver
     driver.quit()
+
 
 # Example usage:
 # download("BearCall", "https://www.barchart.com/options/call-spreads/bear-call?orderBy=maxProfitPercent&orderDir=desc")
