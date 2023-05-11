@@ -35,6 +35,7 @@ def download(folder_name, download_link):
     # Navigate to the download page
     driver.get(download_link)
 
+    time.sleep(5)
     # refresh for the newest data
     refresh_button = WebDriverWait(driver, 5).until(
         EC.element_to_be_clickable((By.CSS_SELECTOR, ".toolbar-button.refresh"))
@@ -46,7 +47,7 @@ def download(folder_name, download_link):
     )
     download_button.click()
 
-    time.sleep(10)
+    time.sleep(7)
     # Close the web driver
     driver.quit()
 
