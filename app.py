@@ -66,7 +66,7 @@ def get_data(folder_name):
 
     csv_files.sort(reverse=True)
     # Get the latest file
-    print(csv_files)
+    # print(csv_files)
     newest_file = csv_files[0]
     # est = timezone('US/Eastern')  # set EST timezone
     # dt = datetime.datetime.now(est)  # get current date and time in EST timezone
@@ -77,7 +77,7 @@ def get_data(folder_name):
 
     # Select the top 10 rows from the DataFrame
     df_top_10 = df.head(10)
-    print(df_top_10)
+    # print(df_top_10)
     df_top_10["Purchased"] = (df_top_10["ExpectedValue"] > 0) & (
         df_top_10["KellyCriterion"] > 0
     )
@@ -131,7 +131,7 @@ def get_data(folder_name):
                 )
             except:
                 print("Contract already purchased")
-
+    print(seen)
     json_data = df_top_10.to_json(orient="records")
     return json_data
 
