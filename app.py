@@ -76,7 +76,7 @@ def get_data(folder_name):
 
     # Select the top 10 rows from the DataFrame
     df_top_10 = df.head(10)
-
+    df_top_10["Purchased"] = False
     seen = set()
     for index, row in df_top_10.iterrows():
         if (
