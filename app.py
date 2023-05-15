@@ -95,9 +95,10 @@ def get_data(folder_name):
 
     # add all of the data to my all contract collection
     # allCollection.insert_many(data)
-
+    seen = set()
     for doc in data:
-        if doc["Purchased"]:
+        if doc["Purchased"] and doc["Symbol"] not in seen:
+            seen.add(doc["Symbol"])
             # add doc to my usedCollection used for history of contract purchased
             name = (
                 doc["Symbol"]
@@ -130,6 +131,7 @@ def get_data(folder_name):
                 )
             except:
                 print("Contract already purchased")
+
     json_data = df_top_10.to_json(orient="records")
     return json_data
 
