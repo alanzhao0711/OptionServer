@@ -85,7 +85,7 @@ def get_data(folder_name):
             and (row["Symbol"] not in seen)
         ):
             df_top_10.loc[index, "Purchased"] = True
-            seen.append(row["Symbol"])
+            seen.add(row["Symbol"])
 
     df_top_10["Strategy"] = folder_name
     df_top_10["CurrentPrice"] = df_top_10["Max Profit"]
