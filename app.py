@@ -11,7 +11,7 @@ import time
 import math
 import pytz
 from pytz import timezone
-from geventwebsocket import WebSocketServer
+from geventwebsocket.handler import WebSocketHandler
 
 
 app = Flask(__name__)
@@ -212,4 +212,4 @@ def handle_connect():
 
 if __name__ == "__main__":
     # app.run(debug=True, port=os.environ.get('PORT', 5000))
-    WebSocketServer(('', 5000), app, resource=socketio).serve_forever()
+    socketio.run(app, host='0.0.0.0', port=5000, handler_class=WebSocketHandler)
