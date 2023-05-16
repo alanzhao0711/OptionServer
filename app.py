@@ -32,30 +32,6 @@ dailyC = db[daily_collection_name]
 usedCollection = db[used_collection_name]
 activeCollection = db[active_collection_name]
 
-# @app.route("/getMarketData")
-# def get_market_data():
-#     try:
-#     #download the data from the website
-#         # download("BearCall", "https://www.barchart.com/options/call-spreads/bear-call?orderBy=maxProfitPercent&orderDir=desc")
-#         # download("BullPut", "https://www.barchart.com/options/put-spreads/bull-put?orderBy=maxProfitPercent&orderDir=desc")
-#         # download("IronCon", "https://www.barchart.com/options/short-condors?orderBy=breakEvenProbability&orderDir=desc")
-
-#         # #analyze data
-#         # generateNewestIronConorsEV("BearCall")
-#         # generateNewestIronConorsEV("BullPut")
-#         # generateNewestIronConorsEV("IronCon")
-#         return "Successfully"
-#     except:
-#         return "Failed, check errors"
-
-# @app.route("/getCurrentMarketPrice")
-# def get_current_market_price():
-#     try:
-#         current_option_price()
-#         return "Option price updated!"
-#     except:
-#         return "Errors, check server log"
-
 
 @app.route("/data/<string:folder_name>")
 def get_data(folder_name):
@@ -240,6 +216,6 @@ def handle_connect():
     socketio.emit("message", "Hello world!")
 
 
-if __name__ == "__main__":
-    # app.run(debug=True, port=os.environ.get('PORT', 5000))
-    socketio.run(app)
+# if __name__ == "__main__":
+#     # app.run(debug=True, port=os.environ.get('PORT', 5000))
+#     socketio.run(app)
