@@ -12,6 +12,7 @@ import math
 import pytz
 from pytz import timezone
 from geventwebsocket.handler import WebSocketHandler
+import json
 
 
 app = Flask(__name__)
@@ -195,6 +196,8 @@ def account_related_info():
 def return_all_past_transactions():
     # return past transactions
     past = list(usedCollection.find({}))
+    s_data = json.dumps(past)
+    print(f"Serialized data size: {len(s_data)} bytes")
     for item in past:
         item["_id"] = str(item["_id"])
     emit("past", past, callback=acknowledgement)
