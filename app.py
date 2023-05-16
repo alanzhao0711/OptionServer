@@ -11,12 +11,8 @@ import time
 import math
 import pytz
 from pytz import timezone
-from DownloadCSV import download
-from Compute import generateNewestIronConorsEV
-from OptionPrice import current_option_price
-from gevent import monkey
+from geventwebsocket import WebSocketServer
 
-monkey.patch_all()
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -31,30 +27,6 @@ db = client[db_name]
 dailyC = db[daily_collection_name]
 usedCollection = db[used_collection_name]
 activeCollection = db[active_collection_name]
-
-# @app.route("/getMarketData")
-# def get_market_data():
-#     try:
-#     #download the data from the website
-#         # download("BearCall", "https://www.barchart.com/options/call-spreads/bear-call?orderBy=maxProfitPercent&orderDir=desc")
-#         # download("BullPut", "https://www.barchart.com/options/put-spreads/bull-put?orderBy=maxProfitPercent&orderDir=desc")
-#         # download("IronCon", "https://www.barchart.com/options/short-condors?orderBy=breakEvenProbability&orderDir=desc")
-
-#         # #analyze data
-#         # generateNewestIronConorsEV("BearCall")
-#         # generateNewestIronConorsEV("BullPut")
-#         # generateNewestIronConorsEV("IronCon")
-#         return "Successfully"
-#     except:
-#         return "Failed, check errors"
-
-# @app.route("/getCurrentMarketPrice")
-# def get_current_market_price():
-#     try:
-#         current_option_price()
-#         return "Option price updated!"
-#     except:
-#         return "Errors, check server log"
 
 
 @app.route("/data/<string:folder_name>")
@@ -168,9 +140,7 @@ def connected():
     PLTotal = 0
     Cost = 0
     for i in list(activeCollection.find({}, {"_id": 0, "data": 1})):
-        PLTotal += ((i["data"]["Max Profit"] - i["data"]["CurrentPrice"]) * 100) * i[
-            "data"
-        ]["Quantity"]
+        PLTotal += ((i["data"]["Max Profit"] - i["data"]["CurrentPrice"]) * 100) * i["data"]["Quantity"]
         Cost += i["data"]["Max Loss"] * 100
     emit("account-PL", PLTotal)
     emit("cost", Cost)
@@ -242,4 +212,4 @@ def handle_connect():
 
 if __name__ == "__main__":
     # app.run(debug=True, port=os.environ.get('PORT', 5000))
-    socketio.run(app)
+    WebSocketServer(('', 5000), app, resource=socketio).serve_forever()
