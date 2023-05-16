@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_socketio import SocketIO, emit
 import pandas as pd
 import os
@@ -118,7 +118,7 @@ def get_active_dash():
         formatedDashboard.append(item["data"])
     # emit("active-dash", formatedDashboard[:6])
     # emit("all-active-options", formatedDashboard)
-    return formatedDashboard
+    return jsonify(formatedDashboard)
 
 @socketio.on("dash")
 def connected():
