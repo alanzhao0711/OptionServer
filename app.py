@@ -132,6 +132,9 @@ def connected():
         formatedDashboard.append(item["data"])
     emit("active-dash", formatedDashboard[:6], callback=acknowledgement)
     emit("all-active-options", formatedDashboard)
+
+    s_data = json.dumps(formatedDashboard)
+    print(f"Serialized data size: {len(s_data)} bytes")
     # UPDATE CURRENT BALANCE
     # calculate the current balance by computing the price of all active
     # contracts, our inital balance is 10,000
@@ -196,8 +199,6 @@ def account_related_info():
 def return_all_past_transactions():
     # return past transactions
     past = list(usedCollection.find({}))
-    s_data = json.dumps(past)
-    print(f"Serialized data size: {len(s_data)} bytes")
     for item in past:
         item["_id"] = str(item["_id"])
     emit("past", past, callback=acknowledgement)
