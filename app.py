@@ -194,8 +194,10 @@ def return_all_past_transactions():
     past = list(usedCollection.find({}))
     for item in past:
         item["_id"] = str(item["_id"])
-    emit("past", past)
+    emit("past", past, callback=acknowledgement)
 
+def acknowledgement(data):
+    print("Data received by client:", data)
 
 @app.route("/")
 def index():
