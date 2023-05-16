@@ -86,7 +86,7 @@ def get_data(folder_name):
         ):
             df_top_10.loc[index, "Purchased"] = True
             seen.add(row["Symbol"])
-
+    seen.clear()
     df_top_10["Strategy"] = folder_name
     df_top_10["CurrentPrice"] = df_top_10["Max Profit"]
     df_top_10["Quantity"] = df_top_10.apply(
