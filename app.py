@@ -109,6 +109,16 @@ def get_data(folder_name):
     json_data = df_top_10.to_json(orient="records")
     return json_data
 
+@app.route("/dashboard/active-dash")
+def get_active_dash():
+    dashboardData = list(activeCollection.find({}, {"_id": 0, "data": 1}).sort([("$natural", -1)]))
+    formatedDashboard = []
+
+    for item in dashboardData:
+        formatedDashboard.append(item["data"])
+    # emit("active-dash", formatedDashboard[:6])
+    # emit("all-active-options", formatedDashboard)
+    return formatedDashboard
 
 @socketio.on("dash")
 def connected():
