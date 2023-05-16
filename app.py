@@ -113,12 +113,12 @@ def get_data(folder_name):
 def get_active_dash():
     dashboardData = list(activeCollection.find({}, {"_id": 0, "data": 1}).sort([("$natural", -1)]))
     formatedDashboard = []
-
+    print(dashboardData)
     for item in dashboardData:
         formatedDashboard.append(item["data"])
     # emit("active-dash", formatedDashboard[:6])
     # emit("all-active-options", formatedDashboard)
-    return jsonify(formatedDashboard)
+    return dashboardData
 
 @socketio.on("dash")
 def connected():
