@@ -210,11 +210,11 @@ def index():
         return "This request was sent via HTTP"
 
 
-@socketio.on("connect")
+@socketio.on("my_event")
 def handle_connect():
     socketio.emit("message", "Hello world!")
 
 
 if __name__ == "__main__":
     # app.run(debug=True, port=os.environ.get('PORT', 5000))
-    socketio.run(app, host='0.0.0.0', port=5000, handler_class=WebSocketHandler)
+    socketio.run(app)
