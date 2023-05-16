@@ -50,6 +50,7 @@ def get_data(folder_name):
     # Select the top 10 rows from the DataFrame
     df_top_10 = df.head(10)
     seen = set()
+    df_top_10["Purchased"] = False
     for index, row in df_top_10.iterrows():
         if (row["ExpectedValue"] > 0) and (row["KellyCriterion"] > 0) and (row["Symbol"] not in seen):
             df_top_10.loc[index, "Purchased"] = True
