@@ -1,1 +1,1 @@
-web: python -m geventwebsocket.server wsgi:app
+web: gunicorn --worker-class gevent -w 1 app:app
