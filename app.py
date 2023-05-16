@@ -11,9 +11,6 @@ import time
 import math
 import pytz
 from pytz import timezone
-from DownloadCSV import download
-from Compute import generateNewestIronConorsEV
-from OptionPrice import current_option_price
 from gevent import monkey
 
 monkey.patch_all()
@@ -97,6 +94,7 @@ def get_data(folder_name):
         else 0,
         axis=1,
     )
+    print(df_top_10)
     data = df_top_10.to_dict("records")
 
     # add all of the data to my all contract collection
@@ -135,7 +133,6 @@ def get_data(folder_name):
                 )
             except:
                 print("Contract already purchased")
-    print(seen)
     json_data = df_top_10.to_json(orient="records")
     return json_data
 
