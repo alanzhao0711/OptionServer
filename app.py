@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, Response
+from flask import Flask, request
 from flask_socketio import SocketIO, emit
 import pandas as pd
 import os
@@ -11,8 +11,6 @@ import time
 import math
 import pytz
 from pytz import timezone
-from geventwebsocket.handler import WebSocketHandler
-import json
 from gevent import monkey
 
 monkey.patch_all()
@@ -135,8 +133,6 @@ def connected():
     emit("active-dash", formatedDashboard[:6], callback=acknowledgement)
     emit("all-active-options", formatedDashboard)
 
-    s_data = json.dumps(formatedDashboard)
-    print(f"Serialized data size: {len(s_data)} bytes")
     # UPDATE CURRENT BALANCE
     # calculate the current balance by computing the price of all active
     # contracts, our inital balance is 10,000
@@ -203,10 +199,8 @@ def return_all_past_transactions():
     past = list(usedCollection.find({}))
     for item in past:
         item["_id"] = str(item["_id"])
-    emit("past", past, callback=acknowledgement)
+    emit("past", past)
 
-def acknowledgement(data):
-    print("Data received by client:", data)
 
 @app.route("/")
 def index():
@@ -223,4 +217,4 @@ def handle_connect():
 
 if __name__ == "__main__":
     # app.run(debug=True, port=os.environ.get('PORT', 5000))
-    socketio.run(app, debug=True)
+    socketio.run(app)
