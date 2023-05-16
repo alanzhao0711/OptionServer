@@ -11,6 +11,9 @@ import time
 import math
 import pytz
 from pytz import timezone
+from DownloadCSV import download
+from Compute import generateNewestIronConorsEV
+from OptionPrice import current_option_price
 from gevent import monkey
 
 monkey.patch_all()
@@ -57,12 +60,13 @@ activeCollection = db[active_collection_name]
 @app.route("/data/<string:folder_name>")
 def get_data(folder_name):
     data_dir = os.path.join(os.path.abspath(os.path.dirname(__file__)), folder_name)
+    print(data_dir)
     # Get the list of CSV files in the files directory
     csv_files = [f for f in os.listdir(data_dir) if f.endswith(".csv") and len(f) == 14]
 
     csv_files.sort(reverse=True)
     # Get the latest file
-    # print(csv_files)
+    print(csv_files)
     newest_file = csv_files[0]
     # est = timezone('US/Eastern')  # set EST timezone
     # dt = datetime.datetime.now(est)  # get current date and time in EST timezone
@@ -73,17 +77,10 @@ def get_data(folder_name):
 
     # Select the top 10 rows from the DataFrame
     df_top_10 = df.head(10)
-    df_top_10["Purchased"] = False
-    seen = set()
-    for index, row in df_top_10.iterrows():
-        if (
-            (row["ExpectedValue"] > 0)
-            and (row["KellyCriterion"] > 0)
-            and (row["Symbol"] not in seen)
-        ):
-            df_top_10.loc[index, "Purchased"] = True
-            seen.add(row["Symbol"])
-    seen.clear()
+    print(df_top_10)
+    df_top_10["Purchased"] = (df_top_10["ExpectedValue"] > 0) & (
+        df_top_10["KellyCriterion"] > 0
+    )
     df_top_10["Strategy"] = folder_name
     df_top_10["CurrentPrice"] = df_top_10["Max Profit"]
     df_top_10["Quantity"] = df_top_10.apply(
@@ -94,11 +91,11 @@ def get_data(folder_name):
         else 0,
         axis=1,
     )
-    print(df_top_10)
     data = df_top_10.to_dict("records")
 
     # add all of the data to my all contract collection
     # allCollection.insert_many(data)
+
     for doc in data:
         if doc["Purchased"]:
             # add doc to my usedCollection used for history of contract purchased
