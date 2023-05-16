@@ -112,7 +112,7 @@ def connected():
     # SEND BASIC INFO (NUM) TO DASHBAORD
     num_transactions = db[used_collection_name].count_documents({})
     num_active = db[active_collection_name].count_documents({})
-    emit("dashboard-nums", {"num_transactions": num_transactions, "active": num_active})
+    # emit("dashboard-nums", {"num_transactions": num_transactions, "active": num_active})
 
     # SEND DASHBOARD CARD INFORMATION TO CLIENT
     dashboardData = list(
@@ -126,9 +126,9 @@ def connected():
     #     item['_id'] = str(item['_id'])
     for item in dashboardData:
         formatedDashboard.append(item["data"])
-    emit("active-dash", formatedDashboard[:6])
+    emit("dashboard-nums", formatedDashboard[:6])
     emit("all-active-options", formatedDashboard)
-    print(formatedDashboard)
+    print(formatedDashboard[:6])
     # UPDATE CURRENT BALANCE
     # calculate the current balance by computing the price of all active
     # contracts, our inital balance is 10,000
