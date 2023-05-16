@@ -129,8 +129,9 @@ def connected():
     # calculate the current balance by computing the price of all active
     # contracts, our inital balance is 10,000
 
-Expand All
-	@@ -138,56 +166,64 @@ def connected():
+    total = 0
+    for i in usedCollection.find():
+        total += ((i["Max Profit"] - i["CurrentPrice"]) * 100) * i["Quantity"]
     newTotal = 8500 + total
     emit("current-balance", newTotal)
     PLTotal = 0
