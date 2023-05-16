@@ -15,7 +15,6 @@ from DownloadCSV import download
 from Compute import generateNewestIronConorsEV
 from OptionPrice import current_option_price
 from gevent import monkey
-monkey.patch_all()
 
 app = Flask(__name__)
 CORS(app,resources={r"/*":{"origins":"*"}})
