@@ -24,15 +24,13 @@ dailyC = db[daily_collection_name]
 usedC = db[used_collection_name]
 activeCollection = db[active_collection_name]
 
-# day = list(dailyC.find({}, {"_id": 0, "date": 1, "balance": 1}))
-# print(day)
-# display = []
-# use = list(usedC.find({}, {"_id": 0}))
-# for doc in use:
-#     found = activeCollection.find_one({"name": doc["name"]})
-#     if not found and doc["Exp Date"] > "2023-04-28":
-#         display.append(doc)
-# print(display)
+# seen = set()
+# for doc in activeCollection.find():
+#     curr = doc["data"]
+#     if curr["Strategy"] == "IronCon":
+#         if curr["Symbol"] in seen:
+#             activeCollection.delete_one({"_id": doc["_id"]})
+#         seen.add(curr["Symbol"])
 # usedC.delete_many({"Symbol": "GOOG"})
 # activeCollection.delete_many({"Symbol": "GOOG"})
 # activeCollection.update_many(
