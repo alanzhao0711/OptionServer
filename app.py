@@ -128,6 +128,7 @@ def connected():
         formatedDashboard.append(item["data"])
     emit("active-dash", formatedDashboard[:6])
     emit("all-active-options", formatedDashboard)
+    print(formatedDashboard)
     # UPDATE CURRENT BALANCE
     # calculate the current balance by computing the price of all active
     # contracts, our inital balance is 10,000
