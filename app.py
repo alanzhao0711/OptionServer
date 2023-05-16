@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from flask_socketio import SocketIO, emit
 import pandas as pd
 import os
@@ -13,7 +13,9 @@ import pytz
 from pytz import timezone
 from geventwebsocket.handler import WebSocketHandler
 import json
+from gevent import monkey
 
+monkey.patch_all()
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -111,14 +113,14 @@ def get_data(folder_name):
 
 @app.route("/dashboard/active-dash")
 def get_active_dash():
-    dashboardData = list(activeCollection.find({}, {"_id": 0, "data": 1}).sort([("$natural", -1)]))
+    dashboardData = list(activeCollection.find({}, {"_id": 0}).sort([("$natural", -1)]))
     formatedDashboard = []
-    print(dashboardData)
+
     for item in dashboardData:
         formatedDashboard.append(item["data"])
-    # emit("active-dash", formatedDashboard[:6])
-    # emit("all-active-options", formatedDashboard)
-    return dashboardData
+    return formatedDashboard
+
+
 
 @socketio.on("dash")
 def connected():
@@ -231,4 +233,4 @@ def handle_connect():
 
 if __name__ == "__main__":
     # app.run(debug=True, port=os.environ.get('PORT', 5000))
-    socketio.run(app)
+    socketio.run(app, debug=True)
