@@ -40,6 +40,7 @@ def download(folder_name, download_link):
     refresh_button = WebDriverWait(driver, 5).until(
         EC.element_to_be_clickable((By.CSS_SELECTOR, ".toolbar-button.refresh"))
     )
+    time.sleep(1)
     refresh_button.click()
     # Find and click the download button
     download_button = WebDriverWait(driver, 1).until(

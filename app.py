@@ -13,7 +13,7 @@ import pytz
 from pytz import timezone
 from gevent import monkey
 
-monkey.patch_all()
+# monkey.patch_all()
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -209,6 +209,12 @@ def index():
     else:
         return "This request was sent via HTTP"
 
+@app.route("/close-positions", methods=["POST"])
+def close_positions():
+    data = request.get_json()
+    res = activeCollection.delete_many({"name": {"$in": data}})
+    print(f"Deleted {res.deleted_count} documents")
+    return "Success"
 
 @socketio.on("my_event")
 def handle_connect():
