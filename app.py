@@ -80,6 +80,8 @@ def get_data(folder_name):
                 + doc["Exp Date"]
                 + str(doc["ExpectedValue"])
                 + str(doc["KellyCriterion"])
+                + str(doc["Leg1 Strike"])
+                + str(doc["Leg2 Strike"])
             )
             try:
                 usedCollection.insert_one({"name": name, **doc})

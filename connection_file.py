@@ -25,12 +25,17 @@ usedC = db[used_collection_name]
 activeCollection = db[active_collection_name]
 
 # seen = set()
-# for doc in activeCollection.find():
-#     curr = doc["data"]
-#     if curr["Strategy"] == "IronCon":
-#         if curr["Symbol"] in seen:
-#             activeCollection.delete_one({"_id": doc["_id"]})
-#         seen.add(curr["Symbol"])
+# for i in activeCollection.find():
+#     doc = i["data"]
+#     name = (
+#         doc["Symbol"]
+#         + doc["Exp Date"]
+#         + str(doc["ExpectedValue"])
+#         + str(doc["KellyCriterion"])
+#         + str(doc["Leg1 Strike"])
+#         + str(doc["Leg2 Strike"])
+#     )
+#     activeCollection.update_one({"_id": i["_id"]}, {"$set": {"name": name}})
 # usedC.delete_many({"Symbol": "GOOG"})
 # activeCollection.delete_many({"Symbol": "GOOG"})
 # activeCollection.update_many(
