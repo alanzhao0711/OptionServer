@@ -78,8 +78,7 @@ def get_data(folder_name):
             name = (
                 doc["Symbol"]
                 + doc["Exp Date"]
-                + str(doc["ExpectedValue"])
-                + str(doc["KellyCriterion"])
+                + str(doc["Strategy"])
                 + str(doc["Leg1 Strike"])
                 + str(doc["Leg2 Strike"])
             )
