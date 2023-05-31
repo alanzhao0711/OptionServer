@@ -117,7 +117,6 @@ def regular_strategy(contract):
         option_chain = yf.Ticker(symbol).option_chain(contract["Exp Date"])
         call_options = option_chain.calls
         put_options = option_chain.puts
-
         ask_bid = [0,0,0,0]
         for i in range(len(option_list)):
             option_symbol = option_list[i]
