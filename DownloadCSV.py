@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 def download(folder_name, download_link):
     # Set the login credentials
-    username = "alanzhao0711@gmail.com"
+    username = "jiahaoz3@uic.edu"
     password = "yunyun520"
 
     # Set the Chrome driver options
