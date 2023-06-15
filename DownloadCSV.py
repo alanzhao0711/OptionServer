@@ -48,7 +48,7 @@ def download(folder_name, download_link):
     )
     download_button.click()
 
-    time.sleep(10)
+    time.sleep(15)
     # Close the web driver
     driver.quit()
 
